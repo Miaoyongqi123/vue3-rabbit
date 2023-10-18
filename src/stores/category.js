@@ -8,7 +8,6 @@ export const useCategoryStore = defineStore('category', () => {
     //action 获取导航数据方法
     const getAllCategory = async () => {
         const data = await getCategory()
-        console.log(data);
         if (data.code == 1) {
             categoryList.value = data.result
         }
