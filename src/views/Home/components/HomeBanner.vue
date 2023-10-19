@@ -1,5 +1,5 @@
 <script setup>
-import { getSwiperList } from '@/api/swiper.js'
+import { getSwiperList } from '@/api/home.js'
 import { onMounted, ref } from 'vue';
 const bannerList = ref([])
 const getBanner = async () => {
