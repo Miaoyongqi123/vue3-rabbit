@@ -3,11 +3,13 @@ import { getCategoryAPI } from '@/api/category.js'
 import { getSwiperList } from '@/api/home.js'
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router';
+import { onBeforeRouteUpdate } from 'vue-router'
+import GoodsItem from '@/views/Home/components/GoodsItem.vue';
 //获取数据
 const categoryData = ref({})
 const route = useRoute()
-const getCategory = async () => {
-  const res = await getCategoryAPI(route.params.id)
+const getCategory = async (id = route.params.id) => {
+  const res = await getCategoryAPI(id)
   // console.log(res);
   categoryData.value = res.result
 }
@@ -20,10 +22,25 @@ const getBanner = async () => {
   // console.log(res);
   bannerList.value = res.result
 }
-onMounted(() => {
-  getCategory(),
-    getBanner()
+onBeforeRouteUpdate((to) => {
+  //重新发送请求
+  // 存在问题：使用最新的路由参数请求最新的分类数据
+getCategory(to.params.id)
+
 })
+onMounted(() => {
+  getBanner(),
+    // 目标:路由参数变化的时候 可以把分类数据接口重新发送
+    // getCategory(to.params.id)
+    getCategory()
+
+  return {
+    categoryData,
+    bannerList
+  }
+})
+
+
 </script>
 
 <template>
@@ -43,6 +60,25 @@ onMounted(() => {
             <img :src="item.imgUrl" alt="">
           </el-carousel-item>
         </el-carousel>
+      </div>
+      <div class="sub-list">
+        <h3>全部分类</h3>
+        <ul>
+          <li v-for="i in categoryData.children" :key="i.id">
+            <RouterLink to="/">
+              <img :src="i.picture" />
+              <p>{{ i.name }}</p>
+            </RouterLink>
+          </li>
+        </ul>
+      </div>
+      <div class="ref-goods" v-for="item in categoryData.children" :key="item.id">
+        <div class="head">
+          <h3>- {{ item.name }}-</h3>
+        </div>
+        <div class="body">
+          <GoodsItem v-for="good in item.goods" :goods="good" :key="good.id" />
+        </div>
       </div>
     </div>
   </div>
@@ -133,7 +169,7 @@ onMounted(() => {
 .home-banner {
   width: 1240px;
   height: 500px;
- 
+
   margin: 0 auto;
   // z-index: 98;
 
@@ -142,5 +178,4 @@ onMounted(() => {
     height: 500px;
   }
 }
-
 </style>

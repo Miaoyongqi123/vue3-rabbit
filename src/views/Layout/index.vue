@@ -1,9 +1,10 @@
 <template>
+   <LayoutFixed />
   <LayoutNav />
   <LayoutHeader />
+  <!-- 添加 key 强制更新 -->
   <RouterView />
   <LayoutFooter />
-  <LayoutFixed />
 </template>
 
 <script setup>
