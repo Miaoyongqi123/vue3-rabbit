@@ -1,46 +1,11 @@
 <script setup>
-import { getCategoryAPI } from '@/api/category.js'
-import { getSwiperList } from '@/api/home.js'
-import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router';
-import { onBeforeRouteUpdate } from 'vue-router'
+
 import GoodsItem from '@/views/Home/components/GoodsItem.vue';
-// import useBanner from '@/views/Category/composables/useBanner.js'
-
-//获取数据
-// const { bannerList } = useBanner()
-const categoryData = ref({})
-const route = useRoute()
-const getCategory = async (id = route.params.id) => {
-  const res = await getCategoryAPI(id)
-  categoryData.value = res.result
-}
-onBeforeRouteUpdate((to) => {
-  //重新发送请求
-  // 存在问题：使用最新的路由参数请求最新的分类数据
-  getCategory(to.params.id)
-
-})
-onMounted(() => {
-    getCategory()
-})
-
-// import { ref, onMounted } from 'vue'
-// import { getBannerAPI } from '@/apis/home'
-
-
-  const bannerList = ref([])
-
-  const getBanner = async () => {
-    const res = await getSwiperList({
-      distributionSite: '2'
-    })
-    console.log(res)
-    bannerList.value = res.result
-  }
-
-  onMounted(() => getBanner())
-
+import { useBanner } from './composables/useBanner.js'
+import { useCtegory } from './composables/useCategory.js'
+//获取分类数据
+const { bannerList } = useBanner()
+const { categoryData } = useCtegory()
 
 </script>
 
