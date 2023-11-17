@@ -1,4 +1,4 @@
-import { ref} from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { loginAPI } from '@/api/user'
 export const useUserStore = defineStore('user', () => {
@@ -11,4 +11,5 @@ export const useUserStore = defineStore('user', () => {
     }
 
     return { userInfo, getUserInfo, }
-})
+    
+},{ persist: true })

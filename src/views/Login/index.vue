@@ -353,3 +353,44 @@ const doLogin = () => {
   color: #fff;
 }
 </style>
+
+
+
+
+<!-- <script>
+{
+  "name": "03-vue3-rabbit",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+  },
+  "dependencies": {
+    "@vueuse/core": "^10.5.0",
+    "axios": "^1.5.1",
+    "element": "^0.1.4",
+    "element-plus": "^2.3.14",
+    "pinia": "^2.1.6",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.3.4",
+    "eslint": "^8.49.0",
+    "eslint-plugin-vue": "^9.17.0",
+    "sass": "^1.69.3",
+    "unplugin-auto-import": "^0.16.6",
+    "unplugin-vue-components": "^0.25.2",
+    "vite": "^4.4.9"
+  }
+}
+
+
+
+
+
+
+</script> -->
