@@ -1,5 +1,6 @@
 import axios from 'axios'
-
+import { ElMessage } from 'element-plus'
+import 'element-plus/es/components/message/style/css'
 // 创建axios实例
 const http = axios.create({
   baseURL: 'http://pcapi-xiaotuxian-front-devtest.itheima.net',
@@ -13,6 +14,8 @@ http.interceptors.request.use(config => {
 
 // axios响应式拦截器
 http.interceptors.response.use(res => res.data, e => {
+  //同意错误提示
+  ElMessage({ type: 'warning', message: e.response.data.message})
   return Promise.reject(e)
 })
 

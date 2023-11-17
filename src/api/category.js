@@ -1,4 +1,4 @@
-import request from '@/utils/http'
+import request from '@/utils/http.js'
 
 /**
  * @description: 获取分类数据

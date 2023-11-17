@@ -1,9 +1,9 @@
-import http from '@/utils/http'
+import request from '@/utils/http.js'
 
 export function getSwiperList(params = {}) {
   //默认为1，商品为2
   const { distributionSite = '1' } = params
-  return http({
+  return request({
     url: '/home/banner',
     params: {
       distributionSite
@@ -17,7 +17,7 @@ export function getSwiperList(params = {}) {
  * @return {*}
  */
 export const findNewGoods = () => {
-  return http({
+  return request({
     url: '/home/new'
   })
 }
@@ -29,7 +29,7 @@ export const findNewGoods = () => {
 * @return {*}
 */
 export const getHot = () => {
-  return http({
+  return request({
     url: '/home/hot'
   })
 }
@@ -40,7 +40,7 @@ export const getHot = () => {
 * @return {*}
 */
 export const getGoodsAPI = () => {
-  return http({
+  return request({
     url: '/home/goods'
   })
 }
