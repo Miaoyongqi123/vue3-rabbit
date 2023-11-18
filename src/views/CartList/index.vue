@@ -2,6 +2,16 @@
 
 import { useCartStore } from '@/stores/cartStore'
 const cartStore = useCartStore()
+
+//单选回调
+// 基本思想：通过skuId找到要进行单选操作的商品，把控制是否选中的selected字段修改为当前单选框的状态
+
+const singleCheck = (i, selected) => {
+
+  // store cartList 数组 无法知道要修改谁的选中状态？
+  // 除了selected补充一个用来筛选的参数 - skuId
+  cartStore.singleCheck(i.skuId, selected)
+}
 </script>
 
 <template>
@@ -26,7 +36,7 @@ const cartStore = useCartStore()
             <tr v-for="i in cartStore.cartList" :key="i.id">
               <td>
                 <!-- 单选框 -->
-                <el-checkbox/>
+                <el-checkbox :model-value="i.selected" @change="(selected) => singleCheck(i, selected)" />
               </td>
               <td>
                 <div class="goods">
@@ -77,7 +87,7 @@ const cartStore = useCartStore()
           <span class="red">¥ 200.00 </span>
         </div>
         <div class="total">
-          <el-button size="large" type="primary" >下单结算</el-button>
+          <el-button size="large" type="primary">下单结算</el-button>
         </div>
       </div>
     </div>
