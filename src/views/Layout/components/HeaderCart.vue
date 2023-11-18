@@ -6,29 +6,29 @@ const cartStore = useCartStore()
 <template>
     <div class="cart">
         <a class="curr" href="javascript:;">
-        <i class="iconfont icon-cart"></i><em>{{ cartStore.cartList.length }}</em>
-    </a>
-    <div class="layer">
-        <div class="list">
-            
-        <div class="item" v-for="i in cartStore.cartList" :key="i">
-          <RouterLink to="">
-            <img :src="i.picture" alt="" />
-            <div class="center">
-              <p class="name ellipsis-2">
-                {{ i.name }}
-              </p>
-              <p class="attr ellipsis">{{ i.attrsText }}</p>
-            </div>
-            <div class="right">
-              <p class="price">&yen;{{ i.price }}</p>
-              <p class="count">x{{ i.count }}</p>
+            <i class="iconfont icon-cart"></i><em>{{ cartStore.cartList.length }}</em>
+        </a>
+        <div class="layer">
+            <div class="list">
+
+                <div class="item" v-for="i in cartStore.cartList" :key="i">
+                    <RouterLink to="">
+                        <img :src="i.picture" alt="" />
+                        <div class="center">
+                            <p class="name ellipsis-2">
+                                {{ i.name }}
+                            </p>
+                            <p class="attr ellipsis">{{ i.attrsText }}</p>
+                        </div>
+                        <div class="right">
+                            <p class="price">&yen;{{ i.price }}</p>
+                            <p class="count">x{{ i.count }}</p>
+                        </div>
+                    </RouterLink>
+                    <i class="iconfont icon-close-new" @click="cartStore.deleteCart(i.skuId)"></i>
                 </div>
-              </RouterLink>
-              <i class="iconfont icon-close-new" @click="store.delCart(i.skuId)"></i>
-            </div>
-           
-            </div>
+
+            </div>gitg
             <div class="foot">
                 <div class="total">
                     <p>共 10 件商品</p>
