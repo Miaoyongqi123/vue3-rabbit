@@ -36,6 +36,12 @@ export const useCartStore = defineStore('cart', () => {
 
     // 2.总价 所有项count *price之和
     const allPrice = computed(() => cartList.value.reduce((a, c) => a + c.count * c.price, 0))
+
+    // 3.已选择数量
+    const selectedCount = computed(() => cartList.value.filter(item => item.selected).reduce((a, c) => a + c.count, 0))
+    // 3.已选择总价
+    const selectedAllPrice = computed(() => cartList.value.filter(item => item.selected).reduce((a, c) => a + c.count * c.price, 0))
+
     //全选功能
     const allCheck = (selected) => {
         // 把cartList中的每一项的selected都设置为当前的全选框状态
@@ -50,7 +56,9 @@ export const useCartStore = defineStore('cart', () => {
 
     //是否全选
     const isAll = computed(() => cartList.value.every((item) => item.selected))
-    return { cartList, addCart, deleteCart, allCount, allPrice, singleCheck, isAll ,allCheck}
+
+
+    return { cartList, addCart, deleteCart, allCount, allPrice, singleCheck, isAll, allCheck, selectedCount, selectedAllPrice }
 },
     {
         persist: true,
