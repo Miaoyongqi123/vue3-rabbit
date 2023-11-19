@@ -1,7 +1,7 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { useUserStore } from './user'
-import { insertCartAPI, findNewCartListAPI } from "@/api/cart"
+import { insertCartAPI, findNewCartListAPI, delCartAPI } from "@/api/cart"
 
 export const useCartStore = defineStore('cart', () => {
     // 1. 定义state - cartList
@@ -16,8 +16,7 @@ export const useCartStore = defineStore('cart', () => {
             const { skuId, count } = goods
             //登录之后购物车逻辑
             await insertCartAPI({ skuId, count })
-            const res = await findNewCartListAPI()
-            cartList.value = res.result
+            updateNewList()
         } else {
             //本地购物车逻辑
             if (item) {
@@ -35,13 +34,28 @@ export const useCartStore = defineStore('cart', () => {
 
 
     }
+    //清除购物车
+    const clearCart = () => {
+        cartList.value = []
+    }
+    //获取最新购物车列表
+    const updateNewList = async () => {
+        const res = await findNewCartListAPI()
+        cartList.value = res.result
+    }
     2.//删除购物车
-    const deleteCart = (skuId) => {
-        // 思路：
-        // 1. 找到要删除项的下标值 - splice
-        // 2. 使用数组的过滤方法 - filter
-        const idx = cartList.value.findIndex((item) => skuId === item.skuId)
-        cartList.value.splice(idx, 1)
+    const deleteCart = async (skuId) => {
+        if (isLogin.value) {
+            await delCartAPI([skuId])
+            updateNewList()
+        } else {
+            // 思路：
+            // 1. 找到要删除项的下标值 - splice
+            // 2. 使用数组的过滤方法 - filter
+            const idx = cartList.value.findIndex((item) => skuId === item.skuId)
+            cartList.value.splice(idx, 1)
+        }
+
     }
 
     //计算属性
@@ -72,7 +86,7 @@ export const useCartStore = defineStore('cart', () => {
     const isAll = computed(() => cartList.value.every((item) => item.selected))
 
 
-    return { cartList, addCart, deleteCart, allCount, allPrice, singleCheck, isAll, allCheck, selectedCount, selectedAllPrice }
+    return { cartList, addCart, deleteCart, allCount, allPrice, singleCheck, isAll, allCheck, selectedCount, selectedAllPrice ,clearCart}
 },
     {
         persist: true,

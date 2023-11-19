@@ -21,4 +21,4 @@ const categoryStore = useCategoryStore()
 onMounted(()=>{
   categoryStore.getAllCategory()
 })
-</script>
+</script>@/stores/categoryStore.js

@@ -77,4 +77,4 @@ const confirm = () => {
     }
   }
 }
-</style>
+</style>@/stores/userStore

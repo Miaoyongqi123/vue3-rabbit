@@ -9,13 +9,17 @@ import router from './router'
 //引入全局组件插件
 
 // 全局指令注册
-import{componentPlugin} from '@/components/index.js'
+import { componentPlugin } from '@/components/index.js'
 import { lazyPlugin } from '@/directives'
 const app = createApp(App)
+// const pinia = createPinia()
 const pinia = createPinia()
-pinia.use(piniaPluginPersistedstate)
 app.use(pinia)
+pinia.use(piniaPluginPersistedstate)
+// app.use(pinia)
 app.use(router)
 app.use(lazyPlugin)
 app.use(componentPlugin)
 app.mount('#app')
+
+
